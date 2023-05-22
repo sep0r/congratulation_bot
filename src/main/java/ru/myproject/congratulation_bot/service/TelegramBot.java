@@ -1,5 +1,6 @@
 package ru.myproject.congratulation_bot.service;
 
+import com.vdurmont.emoji.EmojiParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,10 +32,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         this.config = config;
         List<BotCommand> listOfCommands = new ArrayList<>();
         listOfCommands.add(new BotCommand("/start", "Получить приветственное сообщение"));
-        listOfCommands.add(new BotCommand("/mydata", "Получить историю запросов"));
-        listOfCommands.add(new BotCommand("/deletedata", "Удалить все мои запросы"));
         listOfCommands.add(new BotCommand("/help", "Получить подробное описание команд"));
-        listOfCommands.add(new BotCommand("/settings", "Установить настройки"));
         try {
             this.execute(new SetMyCommands(listOfCommands, new BotCommandScopeDefault(), null));
         } catch (TelegramApiException e) {
@@ -75,7 +73,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private void registerUser(Message msg) {
 
-        if(userRepository.findById(msg.getChatId()).isEmpty()){
+        if (userRepository.findById(msg.getChatId()).isEmpty()) {
 
             var chatId = msg.getChatId();
             var chat = msg.getChat();
@@ -94,21 +92,21 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void startCommandReceived(long chatId, String name) {
-        String answer = "Привет " + name + ", рад познакомиться с тобой!";
+        String answer = EmojiParser.parseToUnicode("Привет " + name + ", рад познакомиться с тобой!" + " :wave:\n\n" +
+                "Я тот самый Мюнхгаузен или если быть точнее:\n" +
+                "Карл Фридрих Иероним фон Мюнхга́узен" + " :slight_smile:");
         log.info("Replied to user " + name);
 
         sendMessage(chatId, answer);
     }
 
     private void helpCommandReceived(long chatId) {
-        String answer = "Я бот, над котором проводит опыты один бестолковый программист, но я не жалуюсь, ведь я страдаю ради науки и это греет мне душу.\n" +
+        String answer = "Я – Мюнхгаузен – барон.\n" + "Весел, ловок и умён.\n" +
+                "Рассказываю анекдоты. А ещё ловко придумываю поздравления или пожелания.\n" +
                 "\n" +
                 "❗️Список команд\n" +
                 "/start - получить приветственное сообщение\n" +
-                "/mydata - получить историю запросов\n" +
-                "/deletedata - удалить все мои запросы\n" +
-                "/help - получить подробное описание команд\n" +
-                "/settings - просмотреть текущие настройки\n";
+                "/help - получить подробное описание команд\n";
         log.info("Test message");
 
         sendMessage(chatId, answer);
