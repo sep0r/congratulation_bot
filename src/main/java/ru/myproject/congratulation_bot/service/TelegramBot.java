@@ -13,8 +13,13 @@ import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.myproject.congratulation_bot.config.BotConfig;
+import ru.myproject.congratulation_bot.model.Anecdote;
+import ru.myproject.congratulation_bot.repository.AnecdoteRepository;
 import ru.myproject.congratulation_bot.model.User;
-import ru.myproject.congratulation_bot.model.UserRepository;
+import ru.myproject.congratulation_bot.repository.UserRepository;
+import ru.myproject.congratulation_bot.repository.goodMorningRandom.GMTable1Repository;
+import ru.myproject.congratulation_bot.service.goodMorningRandom.util.Utils;
+
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -26,12 +31,21 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AnecdoteRepository anecdoteRepository;
+
+    @Autowired
+    private GMTable1Repository gmTableRepository;
+
+    private TemplatesForRandom templatesForRandom;
     final BotConfig config;
 
     public TelegramBot(BotConfig config) {
         this.config = config;
         List<BotCommand> listOfCommands = new ArrayList<>();
         listOfCommands.add(new BotCommand("/start", "Получить приветственное сообщение"));
+        listOfCommands.add(new BotCommand("/anecdote", "Получить анекдот"));
         listOfCommands.add(new BotCommand("/help", "Получить подробное описание команд"));
         try {
             this.execute(new SetMyCommands(listOfCommands, new BotCommandScopeDefault(), null));
@@ -61,6 +75,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                 case "/start":
                     registerUser(update.getMessage());
                     startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
+                    break;
+                case "/anecdote":
+                    getAnecdoteCommandReceived(chatId);
                     break;
                 case "/help":
                     helpCommandReceived(chatId);
@@ -106,8 +123,28 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "\n" +
                 "❗️Список команд\n" +
                 "/start - получить приветственное сообщение\n" +
+                "/anecdote - получить анекдот\n" +
                 "/help - получить подробное описание команд\n";
-        log.info("Test message");
+        log.info("Message /help");
+
+        sendMessage(chatId, answer);
+    }
+
+    private void getAnecdoteCommandReceived(long chatId) {
+        int sum = anecdoteRepository.getCount();
+
+        Anecdote anecdote = anecdoteRepository.findById(Utils.random(sum)).get();
+        String answer = anecdote.getText();
+        log.info("Message /anecdote");
+
+        sendMessage(chatId, answer);
+    }
+
+    private void randomCongratulationCommandReceived(long chatId, TemplatesForRandom templatesForRandom) {
+
+
+        String answer = "";
+        log.info("Message /randomCongratulation");
 
         sendMessage(chatId, answer);
     }
