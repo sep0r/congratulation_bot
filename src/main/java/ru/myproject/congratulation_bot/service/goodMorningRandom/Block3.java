@@ -1,5 +1,6 @@
 package ru.myproject.congratulation_bot.service.goodMorningRandom;
 
+import ru.myproject.congratulation_bot.repository.goodMorningRandom.*;
 import ru.myproject.congratulation_bot.service.goodMorningRandom.util.ListPhrasesUtil;
 
 import static ru.myproject.congratulation_bot.service.goodMorningRandom.util.Utils.*;
@@ -8,46 +9,49 @@ public class Block3 {
 
     static int fork2 = random(3);
 
-    public void getBlock(ListPhrasesUtil phrase) {
+    public void getBlock(ListPhrasesUtil phrase, GMTable2_3_1Repository gm2_3_1, GMTable3_2_1Repository gm3_2_1, GMTable3_2_2Repository gm3_2_2, GMTable3_3_1Repository gm3_3_1,
+                         GMTable3_3_2Repository gm3_3_2, GMTable3_3_3Repository gm3_3_3, GMTable3_4_1Repository gm3_4_1, GMTable3_4_2Repository gm3_4_2, GMTable3_5Repository gm3_5) {
         switch (fork2) {
             case 0:
-                phrase.tab3_2 = phrase.table3_2_1.getTable((phrase.table3_2_1.getSize() - 1));
+                phrase.tab2_3 = gm2_3_1.findById(gm2_3_1.getCount() - 1).get().getText();
+                phrase.tab3_2 = gm3_2_1.findById(gm3_2_1.getCount() - 1).get().getText();
                 int randomFork = random(2);                                     // сменить на переменную
                 if (randomFork == 0) {
-                    phrase.tab3_3 = phrase.table3_3_1.getTable(random(phrase.table3_3_1.getSize()));
-                    phrase.tab3_4 = phrase.table3_4_1.getTable(random(phrase.table3_4_1.getSize()));
-                    phrase.tab3_5 = phrase.table3_5.getTable(random(phrase.table3_5.getSize()));
+                    phrase.tab3_3 = gm3_3_1.findById(random(gm3_3_1.getCount())).get().getText();
+                    phrase.tab3_4 = gm3_4_1.findById(random(gm3_4_1.getCount())).get().getText();
+                    phrase.tab3_5 = gm3_5.findById(random(gm3_5.getCount())).get().getText();
                 } else {
-                    phrase.tab3_3 = phrase.table3_3_2.getTable(random(phrase.table3_3_2.getSize()));
-                    phrase.tab3_4 = phrase.table3_4_2.getTable(random(phrase.table3_4_1.getSize()));
-                    int randomNum = random(phrase.table3_3_3.getSize());
+                    phrase.tab3_3 = gm3_3_2.findById(random(gm3_3_2.getCount())).get().getText();
+                    phrase.tab3_4 = gm3_4_2.findById(random(gm3_4_2.getCount())).get().getText();
+                    int randomNum = random(gm3_3_3.getCount());
                     if (fiftyFifty()) {
-                        phrase.tab3_5 = phrase.table3_3_3.getTable(randomNum) + " и " + phrase.table3_3_3.getTable(secondPhrase(randomNum, phrase.table3_3_3.getSize()));
+                        phrase.tab3_5 = gm3_3_3.findById(randomNum).get().getText() + " и " + gm3_3_3.findById(secondPhrase(randomNum, gm3_3_3.getCount())).get().getText();
                     } else {
-                        phrase.tab3_5 = phrase.table3_3_3.getTable(randomNum);
+                        phrase.tab3_5 = gm3_3_3.findById(randomNum).get().getText();
                     }
                 }
                 break;
             case 1:
-                phrase.tab3_2 = phrase.table3_2_2.getTable(phrase.table3_2_2.getSize() - 1);
-                int randomNum2 = random(phrase.table3_3_3.getSize());
+                phrase.tab3_2 = gm3_2_2.findById(gm3_2_2.getCount() - 1).get().getText();
+                int randomNum2 = random(gm3_3_3.getCount());
                 if (fiftyFifty()) {
-                    phrase.tab3_3 = phrase.table3_3_3.getTable(randomNum2) + " и "
-                            + phrase.table3_3_3.getTable(secondPhrase(randomNum2, phrase.table3_3_3.getSize()));
+                    phrase.tab3_3 = gm3_3_3.findById(randomNum2).get().getText() + " и "
+                            + gm3_3_3.findById(secondPhrase(randomNum2, gm3_3_3.getCount())).get().getText();
                 } else {
-                    phrase.tab3_3 = phrase.table3_3_3.getTable(randomNum2);
+                    phrase.tab3_3 = gm3_3_3.findById(randomNum2).get().getText();
                 }
                 phrase.tab3_4 = "";
                 phrase.tab3_5 = "";
                 break;
             case 2:
-                int randomNum3 = random(phrase.table3_3_3.getSize());
+
+                int randomNum3 = random(gm3_3_3.getCount());
                 if (fiftyFifty()) {
-                    phrase.tab3_3 = phrase.table3_3_3.getTable(randomNum3) + ", "
-                            + phrase.table3_3_3.getTable(secondPhrase(randomNum3, phrase.table3_3_3.getSize())) + " и "
-                            + phrase.table3_3_3.getTable(secondPhrase(randomNum3, phrase.table3_3_3.getSize()));
+                    phrase.tab3_3 = gm3_3_3.findById(randomNum3).get().getText() + ", "
+                            + gm3_3_3.findById(secondPhrase(randomNum3, gm3_3_3.getCount())) + " и "
+                            + gm3_3_3.findById(secondPhrase(randomNum3, gm3_3_3.getCount()));
                 } else {
-                    phrase.tab3_3 = phrase.table3_3_3.getTable(randomNum3);
+                    phrase.tab3_3 = gm3_3_3.findById(randomNum3).get().getText();
                 }
                 phrase.tab3_2 = "";
                 phrase.tab3_4 = "";

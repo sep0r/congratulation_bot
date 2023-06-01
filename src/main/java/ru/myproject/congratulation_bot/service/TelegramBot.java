@@ -17,7 +17,11 @@ import ru.myproject.congratulation_bot.model.Anecdote;
 import ru.myproject.congratulation_bot.repository.AnecdoteRepository;
 import ru.myproject.congratulation_bot.model.User;
 import ru.myproject.congratulation_bot.repository.UserRepository;
-import ru.myproject.congratulation_bot.repository.goodMorningRandom.GMTable1Repository;
+import ru.myproject.congratulation_bot.repository.goodMorningRandom.*;
+import ru.myproject.congratulation_bot.service.goodMorningRandom.Block2;
+import ru.myproject.congratulation_bot.service.goodMorningRandom.Block3;
+import ru.myproject.congratulation_bot.service.goodMorningRandom.TemplatesForRandom;
+import ru.myproject.congratulation_bot.service.goodMorningRandom.util.ListPhrasesUtil;
 import ru.myproject.congratulation_bot.service.goodMorningRandom.util.Utils;
 
 
@@ -36,10 +40,48 @@ public class TelegramBot extends TelegramLongPollingBot {
     private AnecdoteRepository anecdoteRepository;
 
     @Autowired
-    private GMTable1Repository gmTableRepository;
+    GMTable1Repository gm1;
+    @Autowired
+    GMTable2_1Repository gm2_1;
+    @Autowired
+    GMTable2_2Repository gm2_2;
+    @Autowired
+    GMTable2_3_1Repository gm2_3_1;
+    @Autowired
+    GMTable2_3_2Repository gm2_3_2;
+    @Autowired
+    GMTable2_3_3Repository gm2_3_3;
+    @Autowired
+    GMTable2_3_4Repository gm2_3_4;
+    @Autowired
+    GMTable2_4_1Repository gm2_4_1;
+    @Autowired
+    GMTable2_4_2Repository gm2_4_2;
+    @Autowired
+    GMTable2_4_3Repository gm2_4_3;
+    @Autowired
+    GMTable2_4_4Repository gm2_4_4;
+    @Autowired
+    GMTable3_1Repository gm3_1;
+    @Autowired
+    GMTable3_2_1Repository gm3_2_1;
+    @Autowired
+    GMTable3_2_2Repository gm3_2_2;
+    @Autowired
+    GMTable3_3_1Repository gm3_3_1;
+    @Autowired
+    GMTable3_3_2Repository gm3_3_2;
+    @Autowired
+    GMTable3_3_3Repository gm3_3_3;
+    @Autowired
+    GMTable3_4_1Repository gm3_4_1;
+    @Autowired
+    GMTable3_4_2Repository gm3_4_2;
+    @Autowired
+    GMTable3_5Repository gm3_5;
 
-    private TemplatesForRandom templatesForRandom;
     final BotConfig config;
+    private ListPhrasesUtil listPhrasesUtil;
 
     public TelegramBot(BotConfig config) {
         this.config = config;
@@ -78,6 +120,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
                 case "/anecdote":
                     getAnecdoteCommandReceived(chatId);
+                    break;
+                case "/goodmorning":
+                    getRandomCongratulationCommandReceived(chatId);
                     break;
                 case "/help":
                     helpCommandReceived(chatId);
@@ -140,11 +185,15 @@ public class TelegramBot extends TelegramLongPollingBot {
         sendMessage(chatId, answer);
     }
 
-    private void randomCongratulationCommandReceived(long chatId, TemplatesForRandom templatesForRandom) {
+    private void getRandomCongratulationCommandReceived(long chatId) {
+        Block2 block2 = new Block2();
+        Block3 block3 = new Block3();
 
+        block2.getBlock(listPhrasesUtil, gm2_3_1, gm2_3_2, gm2_3_3, gm2_3_4, gm2_4_1, gm2_4_2, gm2_4_3, gm2_4_4);
+        block3.getBlock(listPhrasesUtil, gm2_3_1, gm3_2_1, gm3_2_2, gm3_3_1, gm3_3_2, gm3_3_3, gm3_4_1, gm3_4_2, gm3_5);
 
-        String answer = "";
-        log.info("Message /randomCongratulation");
+        String answer = TemplatesForRandom.randomTemplates(listPhrasesUtil, gm1, gm2_1, gm2_2, gm3_1);
+        log.info("Message /randomGoodMorningCongratulation");
 
         sendMessage(chatId, answer);
     }
