@@ -8,7 +8,7 @@ import static ru.myproject.congratulation_bot.service.goodMorningRandom.util.Uti
 
 public class Block2 {
 
-    static int fork1 = random(4);
+    static int fork1 = random(1); //вернуть 4
 
     public void getBlock(ListPhrasesUtil phrase, GMTable2_3_1Repository gm2_3_1, GMTable2_3_2Repository gm2_3_2, GMTable2_3_3Repository gm2_3_3, GMTable2_3_4Repository gm2_3_4,
                          GMTable2_4_1Repository gm2_4_1, GMTable2_4_2Repository gm2_4_2, GMTable2_4_3Repository gm2_4_3, GMTable2_4_4Repository gm2_4_4) {
