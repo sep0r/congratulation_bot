@@ -11,19 +11,19 @@ public class Block3 {
 
     public void getBlock(ListPhrasesUtil phrase, GMTable2_3_1Repository gm2_3_1, GMTable3_2_1Repository gm3_2_1, GMTable3_2_2Repository gm3_2_2, GMTable3_3_1Repository gm3_3_1,
                          GMTable3_3_2Repository gm3_3_2, GMTable3_3_3Repository gm3_3_3, GMTable3_4_1Repository gm3_4_1, GMTable3_4_2Repository gm3_4_2, GMTable3_5Repository gm3_5) {
-        switch (fork2) {
+        switch (0) { //fork2
             case 0:
-                phrase.tab2_3 = gm2_3_1.findById(gm2_3_1.getCount() - 1).get().getText();
-                phrase.tab3_2 = gm3_2_1.findById(gm3_2_1.getCount() - 1).get().getText();
+                phrase.tab3_2 = gm3_2_1.findById(randomForTable(gm3_2_1.getCount())).get().getText();
                 int randomFork = random(2);                                     // сменить на переменную
                 if (randomFork == 0) {
-                    phrase.tab3_3 = gm3_3_1.findById(random(gm3_3_1.getCount())).get().getText();
-                    phrase.tab3_4 = gm3_4_1.findById(random(gm3_4_1.getCount())).get().getText();
-                    phrase.tab3_5 = gm3_5.findById(random(gm3_5.getCount())).get().getText();
+                    phrase.tab3_3 = gm3_3_1.findById(randomForTable(gm3_3_1.getCount())).get().getText();
+                    phrase.tab3_4 = gm3_4_1.findById(randomForTable(gm3_4_1.getCount())).get().getText();
+                    phrase.tab3_5 = gm3_5.findById(randomForTable(gm3_5.getCount())).get().getText();
                 } else {
-                    phrase.tab3_3 = gm3_3_2.findById(random(gm3_3_2.getCount())).get().getText();
-                    phrase.tab3_4 = gm3_4_2.findById(random(gm3_4_2.getCount())).get().getText();
-                    int randomNum = random(gm3_3_3.getCount());
+                    phrase.tab3_3 = gm3_3_2.findById(randomForTable(gm3_3_2.getCount())).get().getText();
+                    int rrr = randomForTable(gm3_4_2.getCount());
+                    phrase.tab3_4 = gm3_4_2.findById(rrr).get().getText();
+                    int randomNum = randomForTable(gm3_3_3.getCount());
                     if (fiftyFifty()) {
                         phrase.tab3_5 = gm3_3_3.findById(randomNum).get().getText() + " и " + gm3_3_3.findById(secondPhrase(randomNum, gm3_3_3.getCount())).get().getText();
                     } else {
@@ -32,8 +32,8 @@ public class Block3 {
                 }
                 break;
             case 1:
-                phrase.tab3_2 = gm3_2_2.findById(gm3_2_2.getCount() - 1).get().getText();
-                int randomNum2 = random(gm3_3_3.getCount());
+                phrase.tab3_2 = gm3_2_2.findById(randomForTable(gm3_2_2.getCount())).get().getText();
+                int randomNum2 = randomForTable(gm3_3_3.getCount());
                 if (fiftyFifty()) {
                     phrase.tab3_3 = gm3_3_3.findById(randomNum2).get().getText() + " и "
                             + gm3_3_3.findById(secondPhrase(randomNum2, gm3_3_3.getCount())).get().getText();
@@ -45,11 +45,11 @@ public class Block3 {
                 break;
             case 2:
 
-                int randomNum3 = random(gm3_3_3.getCount());
+                int randomNum3 = randomForTable(gm3_3_3.getCount());
                 if (fiftyFifty()) {
                     phrase.tab3_3 = gm3_3_3.findById(randomNum3).get().getText() + ", "
-                            + gm3_3_3.findById(secondPhrase(randomNum3, gm3_3_3.getCount())) + " и "
-                            + gm3_3_3.findById(secondPhrase(randomNum3, gm3_3_3.getCount()));
+                            + gm3_3_3.findById(secondPhrase(randomNum3, gm3_3_3.getCount())).get().getText() + " и "
+                            + gm3_3_3.findById(secondPhrase(randomNum3, gm3_3_3.getCount())).get().getText();
                 } else {
                     phrase.tab3_3 = gm3_3_3.findById(randomNum3).get().getText();
                 }

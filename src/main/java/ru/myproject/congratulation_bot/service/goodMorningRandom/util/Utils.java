@@ -2,8 +2,12 @@ package ru.myproject.congratulation_bot.service.goodMorningRandom.util;
 
 public class Utils {
 
-    public static int random(int tableSize) {
-        return (int) (Math.random() * (tableSize));
+    public static int random(int num) {
+        return (int) (Math.random() * (num));
+    }
+
+    public static int randomForTable(int tableSize) {
+        return 1 + (int) (Math.random() * (tableSize));
     }
 
     public static boolean fiftyFifty() {

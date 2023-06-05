@@ -14,8 +14,10 @@ import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScope
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.myproject.congratulation_bot.config.BotConfig;
 import ru.myproject.congratulation_bot.model.Anecdote;
+import ru.myproject.congratulation_bot.model.Tost;
 import ru.myproject.congratulation_bot.repository.AnecdoteRepository;
 import ru.myproject.congratulation_bot.model.User;
+import ru.myproject.congratulation_bot.repository.TostRepository;
 import ru.myproject.congratulation_bot.repository.UserRepository;
 import ru.myproject.congratulation_bot.repository.goodMorningRandom.*;
 import ru.myproject.congratulation_bot.service.goodMorningRandom.Block2;
@@ -38,6 +40,9 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Autowired
     private AnecdoteRepository anecdoteRepository;
+
+    @Autowired
+    private TostRepository tostRepository;
 
     @Autowired
     GMTable1Repository gm1;
@@ -88,6 +93,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         List<BotCommand> listOfCommands = new ArrayList<>();
         listOfCommands.add(new BotCommand("/start", "Получить приветственное сообщение"));
         listOfCommands.add(new BotCommand("/anecdote", "Получить анекдот"));
+        listOfCommands.add(new BotCommand("/tost", "Получить тост"));
         listOfCommands.add(new BotCommand("/goodmorning", "Получить пожелание доброго утра"));
         listOfCommands.add(new BotCommand("/help", "Получить подробное описание команд"));
         try {
@@ -121,6 +127,9 @@ public class TelegramBot extends TelegramLongPollingBot {
                     break;
                 case "/anecdote":
                     getAnecdoteCommandReceived(chatId);
+                    break;
+                case "/tost":
+                    getTostCommandReceived(chatId);
                     break;
                 case "/goodmorning":
                     getRandomCongratulationCommandReceived(chatId);
@@ -170,6 +179,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "❗️Список команд\n" +
                 "/start - получить приветственное сообщение\n" +
                 "/anecdote - получить анекдот\n" +
+                "/tost - получить тост" +
+                "/goodmorning - получить пожелание доброго утра" +
                 "/help - получить подробное описание команд\n";
         log.info("Message /help");
 
@@ -182,6 +193,16 @@ public class TelegramBot extends TelegramLongPollingBot {
         Anecdote anecdote = anecdoteRepository.findById(Utils.random(sum)).get();
         String answer = anecdote.getText();
         log.info("Message /anecdote");
+
+        sendMessage(chatId, answer);
+    }
+
+    private void getTostCommandReceived(long chatId) {
+        int sum = tostRepository.getCount();
+
+        Tost tost = tostRepository.findById(Utils.random(sum)).get();
+        String answer = tost.getText();
+        log.info("Message /tost");
 
         sendMessage(chatId, answer);
     }

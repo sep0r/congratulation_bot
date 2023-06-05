@@ -1,7 +1,7 @@
-CREATE SEQUENCE global_seq START WITH 1;
+CREATE SEQUENCE seqA START WITH 1;
 
 CREATE TABLE anecdoteTable
 (
-    id   INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqA'),
     text text
 );

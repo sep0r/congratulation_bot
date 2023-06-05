@@ -1,0 +1,9 @@
+DROP SEQUENCE IF EXISTS seqTT;
+DROP TABLE IF EXISTS tostTable;
+CREATE SEQUENCE seqTT START WITH 1;
+
+CREATE TABLE tostTable
+(
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqTT'),
+    text text
+);
