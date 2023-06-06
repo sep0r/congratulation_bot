@@ -179,8 +179,8 @@ public class TelegramBot extends TelegramLongPollingBot {
                 "❗️Список команд\n" +
                 "/start - получить приветственное сообщение\n" +
                 "/anecdote - получить анекдот\n" +
-                "/tost - получить тост" +
-                "/goodmorning - получить пожелание доброго утра" +
+                "/tost - получить тост\n" +
+                "/goodmorning - получить пожелание доброго утра\n" +
                 "/help - получить подробное описание команд\n";
         log.info("Message /help");
 
