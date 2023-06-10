@@ -9,9 +9,9 @@ public class Block3 {
 
     static int fork2 = random(3);
 
-    public void getBlock(ListPhrasesUtil phrase, GMTable2_3_1Repository gm2_3_1, GMTable3_2_1Repository gm3_2_1, GMTable3_2_2Repository gm3_2_2, GMTable3_3_1Repository gm3_3_1,
+    public void getBlock(ListPhrasesUtil phrase, GMTable3_2_1Repository gm3_2_1, GMTable3_2_2Repository gm3_2_2, GMTable3_3_1Repository gm3_3_1,
                          GMTable3_3_2Repository gm3_3_2, GMTable3_3_3Repository gm3_3_3, GMTable3_4_1Repository gm3_4_1, GMTable3_4_2Repository gm3_4_2, GMTable3_5Repository gm3_5) {
-        switch (0) { //fork2
+        switch (fork2) {
             case 0:
                 phrase.tab3_2 = gm3_2_1.findById(randomForTable(gm3_2_1.getCount())).get().getText();
                 int randomFork = random(2);                                     // сменить на переменную
@@ -44,9 +44,8 @@ public class Block3 {
                 phrase.tab3_5 = "";
                 break;
             case 2:
-
                 int randomNum3 = randomForTable(gm3_3_3.getCount());
-                if (fiftyFifty()) {
+                if (fiftyFifty()) {                                                     //Нужно переделать, звучит глупо
                     phrase.tab3_3 = gm3_3_3.findById(randomNum3).get().getText() + ", "
                             + gm3_3_3.findById(secondPhrase(randomNum3, gm3_3_3.getCount())).get().getText() + " и "
                             + gm3_3_3.findById(secondPhrase(randomNum3, gm3_3_3.getCount())).get().getText();

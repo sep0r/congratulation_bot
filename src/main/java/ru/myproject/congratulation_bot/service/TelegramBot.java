@@ -145,10 +145,11 @@ public class TelegramBot extends TelegramLongPollingBot {
             }
         } else if (update.hasCallbackQuery()) {
             String callbackData = update.getCallbackQuery().getData();
-            long messageId = update.getCallbackQuery().getMessage().getMessageId();
             long chatId = update.getCallbackQuery().getMessage().getChatId();
-            if (callbackData.equals("NEXT_BUTTON")) {
+            if (callbackData.equals("anecdote_button")) {
                 getAnecdoteCommandReceived(chatId);
+            } else if (callbackData.equals("tost_button")) {
+                getTostCommandReceived(chatId);
             }
         }
     }
@@ -206,29 +207,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         sendMessage(chatId, answer);
 
-        SendMessage message = new SendMessage();
-        message.setChatId(String.valueOf(chatId));
-        message.setText("Do you really want next anecdote?");
-
-        InlineKeyboardMarkup markupInLine = new InlineKeyboardMarkup();
-        List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>();
-        List<InlineKeyboardButton> rowInLine = new ArrayList<>();
-        var nextButton = new InlineKeyboardButton();
-
-        nextButton.setText("Следующий");
-        nextButton.setCallbackData("NEXT_BUTTON");
-
-        rowInLine.add(nextButton);
-        rowsInLine.add(rowInLine);
-
-        markupInLine.setKeyboard(rowsInLine);
-        message.setReplyMarkup(markupInLine);
-
-        try {
-            execute(message);
-        } catch (TelegramApiException e) {
-            log.error("Error occurred: " + e.getMessage());
-        }
+        getMessageButton(chatId, "anecdote");
     }
 
     private void getTostCommandReceived(long chatId) {
@@ -239,6 +218,8 @@ public class TelegramBot extends TelegramLongPollingBot {
         log.info("Message /tost");
 
         sendMessage(chatId, answer);
+
+        getMessageButton(chatId, "tost");
     }
 
     private void getRandomCongratulationCommandReceived(long chatId) {
@@ -246,7 +227,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         Block3 block3 = new Block3();
 
         block2.getBlock(listPhrasesUtil, gm2_3_1, gm2_3_2, gm2_3_3, gm2_3_4, gm2_4_1, gm2_4_2, gm2_4_3, gm2_4_4);
-        block3.getBlock(listPhrasesUtil, gm2_3_1, gm3_2_1, gm3_2_2, gm3_3_1, gm3_3_2, gm3_3_3, gm3_4_1, gm3_4_2, gm3_5);
+        block3.getBlock(listPhrasesUtil, gm3_2_1, gm3_2_2, gm3_3_1, gm3_3_2, gm3_3_3, gm3_4_1, gm3_4_2, gm3_5);
 
         String answer = TemplatesForRandom.randomTemplates(listPhrasesUtil, gm1, gm2_1, gm2_2, gm3_1);
         log.info("Message /randomGoodMorningCongratulation");
@@ -258,6 +239,34 @@ public class TelegramBot extends TelegramLongPollingBot {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
         message.setText(textToSend);
+
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            log.error("Error occurred: " + e.getMessage());
+        }
+    }
+
+
+    private void getMessageButton(long chatId, String title) {
+        SendMessage message = new SendMessage();
+        message.setChatId(String.valueOf(chatId));
+        String request = (title.equals("anecdote")) ? "анекдот" : "тост";
+        message.setText("Хотите получить ещё " + request + "?");
+
+        InlineKeyboardMarkup markupInLine = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLine = new ArrayList<>();
+        var button = new InlineKeyboardButton();
+
+        button.setText("Следующий");
+        button.setCallbackData(title + "_button");
+
+        rowInLine.add(button);
+        rowsInLine.add(rowInLine);
+
+        markupInLine.setKeyboard(rowsInLine);
+        message.setReplyMarkup(markupInLine);
 
         try {
             execute(message);

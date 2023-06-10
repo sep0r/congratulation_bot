@@ -12,7 +12,7 @@ public class Block2 {
 
     public void getBlock(ListPhrasesUtil phrase, GMTable2_3_1Repository gm2_3_1, GMTable2_3_2Repository gm2_3_2, GMTable2_3_3Repository gm2_3_3, GMTable2_3_4Repository gm2_3_4,
                          GMTable2_4_1Repository gm2_4_1, GMTable2_4_2Repository gm2_4_2, GMTable2_4_3Repository gm2_4_3, GMTable2_4_4Repository gm2_4_4) {
-        switch (2) { //вернуть fork1
+        switch (fork1) {
             case 0:
                 phrase.tab2_3 = gm2_3_1.findById(randomForTable(gm2_3_1.getCount())).get().getText();
                 int randomNum = randomForTable(gm2_4_1.getCount());
