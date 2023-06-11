@@ -14,7 +14,7 @@ public class Block3 {
         switch (fork2) {
             case 0:
                 phrase.tab3_2 = gm3_2_1.findById(randomForTable(gm3_2_1.getCount())).get().getText();
-                int randomFork = random(2);                                     // сменить на переменную
+                int randomFork = random(2);
                 if (randomFork == 0) {
                     phrase.tab3_3 = gm3_3_1.findById(randomForTable(gm3_3_1.getCount())).get().getText();
                     phrase.tab3_4 = gm3_4_1.findById(randomForTable(gm3_4_1.getCount())).get().getText();
@@ -43,12 +43,13 @@ public class Block3 {
                 phrase.tab3_4 = "";
                 phrase.tab3_5 = "";
                 break;
-            case 2:
+            case 2:                                                                 //Нужно переделать, звучит глупо
                 int randomNum3 = randomForTable(gm3_3_3.getCount());
-                if (fiftyFifty()) {                                                     //Нужно переделать, звучит глупо
+                if (fiftyFifty()) {
+                    int randomNumForSecondPhrase = secondPhrase(randomNum3, gm3_3_3.getCount());
                     phrase.tab3_3 = gm3_3_3.findById(randomNum3).get().getText() + ", "
-                            + gm3_3_3.findById(secondPhrase(randomNum3, gm3_3_3.getCount())).get().getText() + " и "
-                            + gm3_3_3.findById(secondPhrase(randomNum3, gm3_3_3.getCount())).get().getText();
+                            + gm3_3_3.findById(randomNumForSecondPhrase).get().getText() + " и "
+                            + gm3_3_3.findById(thirdPhrase(randomNum3, randomNumForSecondPhrase, gm3_3_3.getCount())).get().getText();
                 } else {
                     phrase.tab3_3 = gm3_3_3.findById(randomNum3).get().getText();
                 }

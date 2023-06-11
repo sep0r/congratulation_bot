@@ -15,11 +15,19 @@ public class Utils {
         return i > 0;
     }
 
-    public static int secondPhrase(int randomNumber, int tableSize) { //Не работает для 3 фраз, нужно исправить
+    public static int secondPhrase(int randomNumber, int tableSize) {
         int random;
         do {
-            random = (int) (Math.random() * (tableSize));
+            random = randomForTable(tableSize);
         } while (randomNumber == random);
+        return random;
+    }
+
+    public static int thirdPhrase(int randomNumber, int secondRandomNum, int tableSize) {
+        int random;
+        do {
+            random = randomForTable(tableSize);
+        } while (randomNumber == random || randomNumber == secondRandomNum);
         return random;
     }
 }
