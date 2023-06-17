@@ -87,8 +87,8 @@ VALUES ('будет'),
        ('станет');
 
 INSERT INTO gmtable2_3_2 (text)
-VALUES ('будет'),
-       ('станет');
+VALUES ('принесёт'),
+       ('доставит тебе');
 
 INSERT INTO gmtable2_3_3 (text)
 VALUES ('сложится'),

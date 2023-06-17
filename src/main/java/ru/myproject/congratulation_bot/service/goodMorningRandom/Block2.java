@@ -1,6 +1,5 @@
 package ru.myproject.congratulation_bot.service.goodMorningRandom;
 
-import ru.myproject.congratulation_bot.model.goodMorningRandom.part2.GMTable2_3_1;
 import ru.myproject.congratulation_bot.repository.goodMorningRandom.*;
 import ru.myproject.congratulation_bot.service.goodMorningRandom.util.ListPhrasesUtil;
 
