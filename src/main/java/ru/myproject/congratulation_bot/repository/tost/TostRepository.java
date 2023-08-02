@@ -1,9 +1,8 @@
-package ru.myproject.congratulation_bot.repository;
+package ru.myproject.congratulation_bot.repository.tost;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import ru.myproject.congratulation_bot.model.Anecdote;
-import ru.myproject.congratulation_bot.model.Tost;
+import ru.myproject.congratulation_bot.model.tost.Tost;
 
 public interface TostRepository extends CrudRepository<Tost, Integer> {
 

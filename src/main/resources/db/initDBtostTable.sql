@@ -7,3 +7,94 @@ CREATE TABLE tostTable
     id   INTEGER PRIMARY KEY DEFAULT nextval('seqTT'),
     text text
 );
+
+
+DROP SEQUENCE IF EXISTS seqTL;
+DROP TABLE IF EXISTS tost_lybov;
+CREATE SEQUENCE seqTL START WITH 1;
+
+CREATE TABLE tost_lybov
+(
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqTL'),
+    text text
+);
+
+DROP SEQUENCE IF EXISTS seqTR;
+DROP TABLE IF EXISTS tost_rodnym;
+CREATE SEQUENCE seqTR START WITH 1;
+
+CREATE TABLE tost_rodnym
+(
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqTR'),
+    text text
+);
+
+DROP SEQUENCE IF EXISTS seqTK;
+DROP TABLE IF EXISTS tost_krasivye;
+CREATE SEQUENCE seqTK START WITH 1;
+
+CREATE TABLE tost_krasivye
+(
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqTK'),
+    text text
+);
+
+DROP SEQUENCE IF EXISTS seqTD;
+DROP TABLE IF EXISTS tost_den_rozhdeniya;
+CREATE SEQUENCE seqTD START WITH 1;
+
+CREATE TABLE tost_den_rozhdeniya
+(
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqTD'),
+    text text
+);
+
+DROP SEQUENCE IF EXISTS seqTP;
+DROP TABLE IF EXISTS tost_prazdnik;
+CREATE SEQUENCE seqTP START WITH 1;
+
+CREATE TABLE tost_prazdnik
+(
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqTP'),
+    text text
+);
+
+DROP SEQUENCE IF EXISTS seqTY;
+DROP TABLE IF EXISTS tost_yubiley;
+CREATE SEQUENCE seqTY START WITH 1;
+
+CREATE TABLE tost_yubiley
+(
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqTY'),
+    text text
+);
+
+DROP SEQUENCE IF EXISTS seqTS;
+DROP TABLE IF EXISTS tost_svadba;
+CREATE SEQUENCE seqTS START WITH 1;
+
+CREATE TABLE tost_svadba
+(
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqTS'),
+    text text
+);
+
+DROP SEQUENCE IF EXISTS seqTPR;
+DROP TABLE IF EXISTS tost_prikolnye;
+CREATE SEQUENCE seqTPR START WITH 1;
+
+CREATE TABLE tost_prikolnye
+(
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqTPR'),
+    text text
+);
+
+DROP SEQUENCE IF EXISTS seqTKO;
+DROP TABLE IF EXISTS tost_korotkie;
+CREATE SEQUENCE seqTKO START WITH 1;
+
+CREATE TABLE tost_korotkie
+(
+    id   INTEGER PRIMARY KEY DEFAULT nextval('seqTKO'),
+    text text
+);

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.commands.SetMyCommands;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
@@ -17,10 +16,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.myproject.congratulation_bot.config.BotConfig;
 import ru.myproject.congratulation_bot.model.Anecdote;
-import ru.myproject.congratulation_bot.model.Tost;
+import ru.myproject.congratulation_bot.model.tost.*;
 import ru.myproject.congratulation_bot.repository.AnecdoteRepository;
 import ru.myproject.congratulation_bot.model.User;
-import ru.myproject.congratulation_bot.repository.TostRepository;
+import ru.myproject.congratulation_bot.repository.tost.*;
 import ru.myproject.congratulation_bot.repository.UserRepository;
 import ru.myproject.congratulation_bot.repository.goodMorningRandom.*;
 import ru.myproject.congratulation_bot.service.goodMorningRandom.Block2;
@@ -46,6 +45,24 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     @Autowired
     private TostRepository tostRepository;
+    @Autowired
+    private TostLybovRepository tostLybovRepository;
+    @Autowired
+    private TostDenRozhdeniyaRepository tostDenRozhdeniyaRepository;
+    @Autowired
+    private TostKorotkieRepository tostKorotkieRepository;
+    @Autowired
+    private TostKrasivyeRepository tostKrasivyeRepository;
+    @Autowired
+    private TostPrazdnikRepository tostPrazdnikRepository;
+    @Autowired
+    private TostPrikolnyeRepository tostPrikolnyeRepository;
+    @Autowired
+    private TostRodnymRepository tostRodnymRepository;
+    @Autowired
+    private TostSvadbaRepository tostSvadbaRepository;
+    @Autowired
+    private TostYubileyRepository tostYubileyRepository;
 
     @Autowired
     GMTable1Repository gm1;
@@ -150,6 +167,24 @@ public class TelegramBot extends TelegramLongPollingBot {
                 getAnecdoteCommandReceived(chatId);
             } else if (callbackData.equals("tost_button")) {
                 getTostCommandReceived(chatId);
+            } else if (callbackData.equals("lybov_button")) {
+                getTost(chatId, callbackData);
+            } else if (callbackData.equals("yubiley_button")) {
+                getTost(chatId, callbackData);
+            } else if (callbackData.equals("svadba_button")) {
+                getTost(chatId, callbackData);
+            } else if (callbackData.equals("prikolnye_button")) {
+                getTost(chatId, callbackData);
+            } else if (callbackData.equals("prazdnik_button")) {
+                getTost(chatId, callbackData);
+            } else if (callbackData.equals("krasivye_button")) {
+                getTost(chatId, callbackData);
+            } else if (callbackData.equals("korotkie_button")) {
+                getTost(chatId, callbackData);
+            } else if (callbackData.equals("denRozhdeniya_button")) {
+                getTost(chatId, callbackData);
+            } else if (callbackData.equals("rodnym_button")) {
+                getTost(chatId, callbackData);
             }
         }
     }
@@ -211,16 +246,60 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void getTostCommandReceived(long chatId) {
-        int sum = tostRepository.getCount();
+        getTostButtons(chatId); // Должен возвращать название темы
 
-        Tost tost = tostRepository.findById(Utils.random(sum)).get();
-        String answer = tost.getText();
-        log.info("Message /tost");
+//        int sum = tostRepository.getCount();
+//
+//        Tost tost = tostRepository.findById(Utils.random(sum)).get();
+//        String answer = tost.getText();
+//        log.info("Message /tost");
+//
+//        sendMessage(chatId, answer);
 
-        sendMessage(chatId, answer);
-
-        getMessageButton(chatId, "tost");
+//        getMessageButton(chatId, "tost");
     }
+
+    private void getTost(long chatId, String callbackData) {
+        switch (callbackData) {
+            case "rodnym_button":
+                TostRodnym tostRodnym = tostRodnymRepository.findById(Utils.random(tostRodnymRepository.getCount())).get();
+                sendMessage(chatId, tostRodnym.getText());
+                break;
+            case "lybov_button":
+                TostLybov tostLybov = tostLybovRepository.findById(Utils.random(tostLybovRepository.getCount())).get();
+                sendMessage(chatId, tostLybov.getText());
+                break;
+            case "yubiley_button":
+                TostYubiley tostYubiley = tostYubileyRepository.findById(Utils.random(tostYubileyRepository.getCount())).get();
+                sendMessage(chatId, tostYubiley.getText());
+                break;
+            case "svadba_button":
+                TostSvadba tostSvadba = tostSvadbaRepository.findById(Utils.random(tostSvadbaRepository.getCount())).get();
+                sendMessage(chatId, tostSvadba.getText());
+                break;
+            case "prikolnye_button":
+                TostPrikolnye tostPrikolnye = tostPrikolnyeRepository.findById(Utils.random(tostPrikolnyeRepository.getCount())).get();
+                sendMessage(chatId, tostPrikolnye.getText());
+                break;
+            case "prazdnik_button":
+                TostPrazdnik tostPrazdnik = tostPrazdnikRepository.findById(Utils.random(tostPrazdnikRepository.getCount())).get();
+                sendMessage(chatId, tostPrazdnik.getText());
+                break;
+            case "krasivye_button":
+                TostKrasivye tostKrasivye = tostKrasivyeRepository.findById(Utils.random(tostKrasivyeRepository.getCount())).get();
+                sendMessage(chatId, tostKrasivye.getText());
+                break;
+            case "korotkie_button":
+                TostKorotkie tostKorotkie = tostKorotkieRepository.findById(Utils.random(tostKorotkieRepository.getCount())).get();
+                sendMessage(chatId, tostKorotkie.getText());
+                break;
+            case "denRozhdeniya_button":
+                TostDenRozhdeniya tostDenRozhdeniya = tostDenRozhdeniyaRepository.findById(Utils.random(tostDenRozhdeniyaRepository.getCount())).get();
+                sendMessage(chatId, tostDenRozhdeniya.getText());
+                break;
+        }
+    }
+
 
     private void getRandomCongratulationCommandReceived(long chatId) {
         Block2 block2 = new Block2();
@@ -264,6 +343,71 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         rowInLine.add(button);
         rowsInLine.add(rowInLine);
+
+        markupInLine.setKeyboard(rowsInLine);
+        message.setReplyMarkup(markupInLine);
+
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+            log.error("Error occurred: " + e.getMessage());
+        }
+    }
+
+
+    private void getTostButtons(long chatId) {
+        SendMessage message = new SendMessage();
+        message.setChatId(String.valueOf(chatId));
+        message.setText("Выберите тему тоста:");
+
+        InlineKeyboardMarkup markupInLine = new InlineKeyboardMarkup();
+        List<List<InlineKeyboardButton>> rowsInLine = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLineA = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLineB = new ArrayList<>();
+        List<InlineKeyboardButton> rowInLineC = new ArrayList<>();
+
+        var buttonRodnym = new InlineKeyboardButton();
+        var buttonLybov = new InlineKeyboardButton();
+        var buttonYubiley = new InlineKeyboardButton();
+        var buttonSvadba = new InlineKeyboardButton();
+        var buttonPrikolnye = new InlineKeyboardButton();
+        var buttonPrazdnik = new InlineKeyboardButton();
+        var buttonKrasivye = new InlineKeyboardButton();
+        var buttonKorotkie = new InlineKeyboardButton();
+        var buttonDenRozhdeniya = new InlineKeyboardButton();
+
+        buttonRodnym.setText("Родным");
+        buttonRodnym.setCallbackData("rodnym_button");
+        buttonLybov.setText("Любовь");
+        buttonLybov.setCallbackData("lybov_button");
+        buttonYubiley.setText("На юбилей");
+        buttonYubiley.setCallbackData("yubiley_button");
+        buttonSvadba.setText("На свадьбу");
+        buttonSvadba.setCallbackData("svadba_button");
+        buttonPrikolnye.setText("Прикольные");
+        buttonPrikolnye.setCallbackData("prikolnye_button");
+        buttonPrazdnik.setText("На праздник");
+        buttonPrazdnik.setCallbackData("prazdnik_button");
+        buttonKrasivye.setText("Красивые");
+        buttonKrasivye.setCallbackData("krasivye_button");
+        buttonKorotkie.setText("Короткие");
+        buttonKorotkie.setCallbackData("korotkie_button");
+        buttonDenRozhdeniya.setText("Ко дню рождения");
+        buttonDenRozhdeniya.setCallbackData("denRozhdeniya_button");
+
+        rowInLineA.add(buttonRodnym);
+        rowInLineA.add(buttonLybov);
+        rowInLineA.add(buttonYubiley);
+        rowInLineB.add(buttonSvadba);
+        rowInLineB.add(buttonPrikolnye);
+        rowInLineB.add(buttonPrazdnik);
+        rowInLineC.add(buttonKrasivye);
+        rowInLineC.add(buttonKorotkie);
+        rowInLineC.add(buttonDenRozhdeniya);
+
+        rowsInLine.add(rowInLineA);
+        rowsInLine.add(rowInLineB);
+        rowsInLine.add(rowInLineC);
 
         markupInLine.setKeyboard(rowsInLine);
         message.setReplyMarkup(markupInLine);
